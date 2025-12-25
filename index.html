@@ -1,21 +1,16 @@
-<button onclick="play('shir')">شیر</button>
-<button onclick="play('khat')">خط</button>
-<p id="msg"></p>
-
-<script>
-async function play(choice) {
-  const res = await fetch("https://lion-game-backend-qoocpcy1u-atis-projects-add30e7d.vercel.app/play", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      fid: window.farcaster?.fid || "12345",
-      wallet: window.farcaster?.wallet || "0xYourWalletAddress",
-      guess: choice
-    })
-  });
-
-  const data = await res.json();
-  document.getElementById("msg").innerText =
-    data.win ? `بردی 🎉 LION گرفتی` : "باختی ❌ فردا بیا";
-}
-</script>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>Test Mini App</title>
+<style>
+  body { text-align: center; margin-top: 50px; font-family: sans-serif; }
+  button { padding: 10px 20px; margin: 10px; font-size: 18px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Test Mini App 🦁</h1>
+<button onclick="alert('شیر')">شیر</button>
+<button onclick="alert('خط')">خط</button>
+</body>
+</html>

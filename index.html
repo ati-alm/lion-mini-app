@@ -1,0 +1,21 @@
+<button onclick="play('shir')">شیر</button>
+<button onclick="play('khat')">خط</button>
+<p id="msg"></p>
+
+<script>
+async function play(choice) {
+  const res = await fetch("https://lion-game-backend-qoocpcy1u-atis-projects-add30e7d.vercel.app/play", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      fid: window.farcaster?.fid || "12345",
+      wallet: window.farcaster?.wallet || "0xYourWalletAddress",
+      guess: choice
+    })
+  });
+
+  const data = await res.json();
+  document.getElementById("msg").innerText =
+    data.win ? `بردی 🎉 LION گرفتی` : "باختی ❌ فردا بیا";
+}
+</script>

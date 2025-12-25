@@ -2,15 +2,72 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>Test Mini App</title>
+<title>Lion Mini App 🦁</title>
+<script src="https://unpkg.com/@farcaster/farcaster-mini-app-sdk"></script>
 <style>
-  body { text-align: center; margin-top: 50px; font-family: sans-serif; }
-  button { padding: 10px 20px; margin: 10px; font-size: 18px; cursor: pointer; }
+  body {
+    text-align: center;
+    margin-top: 50px;
+    font-family: sans-serif;
+    background: linear-gradient(to bottom, #ffe6b3, #ffcc66);
+  }
+  h1 {
+    font-size: 32px;
+    color: #663300;
+  }
+  .btn-img {
+    width: 120px;
+    height: 120px;
+    margin: 15px;
+    border: 3px solid #663300;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .btn-img:hover {
+    transform: scale(1.1);
+  }
+  #msg {
+    font-size: 22px;
+    margin-top: 20px;
+    color: #660000;
+  }
 </style>
 </head>
 <body>
-<h1>Test Mini App 🦁</h1>
-<button onclick="alert('شیر')">شیر</button>
-<button onclick="alert('خط')">خط</button>
+
+<h1>Lion Mini App 🦁</h1>
+
+<img src="https://i.ibb.co/your-shir.png" class="btn-img" onclick="play('shir')" alt="شیر">
+<img src="https://i.ibb.co/your-khat.png" class="btn-img" onclick="play('khat')" alt="خط">
+
+<p id="msg"></p>
+
+<script>
+  // SDK آماده شد
+  window.farcaster?.actions.ready();
+
+  async function play(choice) {
+    try {
+      const res = await fetch("https://lion-game-backend-qoocpcy1u-atis-projects-add30e7d.vercel.app/play", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fid: window.farcaster?.fid || "12345",
+          wallet: window.farcaster?.wallet || "0xYourWalletAddress",
+          guess: choice
+        })
+      });
+
+      const data = await res.json();
+      document.getElementById("msg").innerText =
+        data.win ? `بردی 🎉 10 LION گرفتی` : `باختی ❌ حدس بعدی فردا`;
+    } catch (err) {
+      document.getElementById("msg").innerText = "خطا در اتصال به سرور";
+      console.error(err);
+    }
+  }
+</script>
+
 </body>
 </html>

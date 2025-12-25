@@ -48,7 +48,8 @@
 
   async function play(choice) {
     try {
-      const res = await fetch("https://lion-game-backend-qoocpcy1u-atis-projects-add30e7d.vercel.app/play", {
+      const res = await fetch("https://lion-game-backend.vercel.app/api/play", {
+
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
